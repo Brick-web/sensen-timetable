@@ -1,0 +1,32 @@
+package ren.hieu.sensenapp.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+val SenSenBg = Color(0xFFFFFFFF)
+val SenSenToolbarBg = Color(0xFFF8F9FA)
+val SenSenToolbarBorder = Color(0xFFEEEEEE)
+val SenSenTextPrimary = Color(0xFF1F2937)
+val SenSenTextSecondary = Color(0xFF9CA3AF)
+val SenSenTextMuted = Color(0xFF6B7280)
+val SenSenAccent = Color(0xFF2F7AF0)
+val SenSenGridLine = Color(0xFFF0F0F0)
+val SenSenDayHeaderBg = Color(0xFFFAFAFA)
+
+val IosGroupedBg = Color(0xFFF2F2F7)
+val IosCardBg = Color(0xFFFFFFFF)
+val IosFieldBg = Color(0xFFF2F2F7)
+val IosLabel = Color(0xFF000000)
+val IosSecondaryLabel = Color(0x993C3C43)
+val IosTertiaryLabel = Color(0x4D3C3C43)
+val IosSeparator = Color(0x4A3C3C43)
+val IosPressed = Color(0xFFE5E5EA)
+val IosChevron = Color(0xFFC4C4C7)
+val IosBlue = Color(0xFF007AFF)
+val IosGreen = Color(0xFF34C759)
+val IosOrange = Color(0xFFFF9500)
+val IosRed = Color(0xFFFF3B30)
+val IosPurple = Color(0xFFAF52DE)
+val IosIndigo = Color(0xFF5856D6)
+val IosTeal = Color(0xFF30B0C7)
+val IosPink = Color(0xFFFF2D55)
+val IosSwitchOff = Color(0xFFE9E9EB)

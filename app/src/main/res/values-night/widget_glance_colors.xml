@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_bg_outer">#FF0F1114</color>
+    <color name="widget_bg_inner">#FF1C1F24</color>
+    <color name="widget_text_primary">#FFE8EAED</color>
+    <color name="widget_text_secondary">#FF9AA0A6</color>
+    <color name="widget_accent">#FF5B9BFA</color>
+    <color name="widget_accent_soft">#FF3D6BB5</color>
+    <color name="widget_text_past">#FF6B7280</color>
+    <color name="widget_bar_past">#FF4B5563</color>
+    <color name="widget_row_current_bg">#FF1A2D4A</color>
+    <color name="widget_grid_line">#FF2D3238</color>
+    <color name="widget_header_bg">#FF252A31</color>
+    <color name="widget_today_bg">#FF1E2A3D</color>
+    <color name="widget_today_bg_soft">#591E2A3D</color>
+    <color name="widget_chip_text">#FFFFFFFF</color>
+    <color name="widget_banner_bg">#FF3D3420</color>
+    <color name="widget_banner_text">#FFFBBF24</color>
+    <color name="widget_title_badge_bg">#FF3B82F6</color>
+</resources>

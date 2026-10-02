@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">森森课表开源版</string>
+    <string name="widget_period_label">时段课表</string>
+    <string name="widget_period_desc">按当前时间显示上午、下午或晚上课程</string>
+    <string name="widget_full_day_label">全天课表</string>
+    <string name="widget_full_day_desc">上午、下午、晚上分段展示今日课程</string>
+    <string name="widget_week_label">周课表</string>
+    <string name="widget_week_desc">显示当前教学周按星期汇总的课程</string>
+    <string name="widget_pin_not_supported">当前桌面不支持一键添加，请长按桌面 → 小组件 → 森森课表</string>
+    <string name="widget_pin_success">小组件已添加到桌面</string>
+    <string name="widget_pin_added_hint">若没有出现添加弹窗，请在系统设置 → 应用 → 森森课表 → 权限中开启「桌面快捷方式」</string>
+    <string name="widget_pin_permission_title">需要「桌面快捷方式」权限</string>
+    <string name="widget_pin_permission_message">系统需要授予森森课表「桌面快捷方式」权限后才能弹出添加小组件窗口。请在权限页开启后返回重试，或长按桌面 → 小组件 → 森森课表手动添加。</string>
+    <string name="widget_pin_permission_go">去开启</string>
+    <string name="settings_widgets_hint">点击后将请求添加到主屏幕</string>
+    <string name="check_update">检查更新</string>
+    <string name="notification_channel_class">课前提醒</string>
+    <string name="notification_channel_class_desc">课前提醒</string>
+    <string name="class_reminder_title">课前提醒</string>
+    <string name="widget_sheet_title">小组件</string>
+</resources>
