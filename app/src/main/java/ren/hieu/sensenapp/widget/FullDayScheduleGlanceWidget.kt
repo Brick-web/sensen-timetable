@@ -16,7 +16,9 @@ class FullDayScheduleGlanceWidget : GlanceAppWidget() {
         val presentation = loadWidgetPresentation(context)
         provideContent {
             ScheduleGlanceTheme {
-                GlanceFullDayScheduleContent(today, presentation)
+                RefreshingWidgetContent(context, today, presentation, { loadTodayForWidget(context) }) { data, style ->
+                    GlanceFullDayScheduleContent(data, style)
+                }
             }
         }
     }

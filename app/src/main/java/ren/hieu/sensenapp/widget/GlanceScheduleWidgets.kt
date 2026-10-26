@@ -55,12 +55,12 @@ import java.time.LocalDateTime
 
 // RemoteViews 限制：每个 Row / Column 最多渲染 10 个直接子项，超出部分会被静默丢弃。
 
-private val ShellPaddingH = 14.dp
-private val ShellPaddingV = 10.dp
-private val CourseRowGap = 4.dp
-private val SectionGap = 8.dp
-private val SectionHeaderHeight = 16.dp
-private val SectionHeaderGap = 6.dp
+private val ShellPaddingH = 12.dp
+private val ShellPaddingV = 6.dp
+private val CourseRowGap = 3.dp
+private val SectionGap = 5.dp
+private val SectionHeaderHeight = 15.dp
+private val SectionHeaderGap = 4.dp
 
 private val WeekTitleHeight = 18.dp
 private val WeekTitleGap = 6.dp
@@ -105,7 +105,6 @@ private fun GlanceDayScheduleContent(
     GlanceWidgetShell(
         bannerText = presentation.bannerText,
         verticalPadding = metrics.paddingV,
-        centerVertically = true,
     ) {
         if (today == null) {
             UnboundHint()
@@ -135,9 +134,8 @@ private data class DayLayoutMetrics(
     val compact: Boolean get() = rowHeight < CompactRowThreshold
 }
 
-private val NormalMinRowHeight = 30.dp
-private val MaxRowHeight = 40.dp
-private val CompactMinRowHeight = 20.dp
+private val NormalMinRowHeight = 26.dp
+private val CompactMinRowHeight = 18.dp
 private val CompactRowThreshold = 30.dp
 private val EmptyHintHeight = 14.dp
 
@@ -162,14 +160,14 @@ private fun dayLayoutMetrics(
     fun build(paddingV: Dp, header: Dp, headerGap: Dp, sectionGap: Dp, rowGap: Dp, minRow: Dp): DayLayoutMetrics? {
         val fixed = paddingV * 2 + banner + (header + headerGap) * sections.size +
             sectionGap * sectionGaps + rowGap * rowGaps + EmptyHintHeight * emptySections
-        val row = if (rows == 0) MaxRowHeight else (available - fixed) / rows
+        val row = if (rows == 0) minRow else (available - fixed) / rows
         if (row < minRow) return null
-        return DayLayoutMetrics(paddingV, header, headerGap, sectionGap, rowGap, row.coerceAtMost(MaxRowHeight))
+        return DayLayoutMetrics(paddingV, header, headerGap, sectionGap, rowGap, row)
     }
 
     return build(ShellPaddingV, SectionHeaderHeight, SectionHeaderGap, SectionGap, CourseRowGap, NormalMinRowHeight)
-        ?: build(8.dp, 14.dp, 2.dp, 4.dp, 2.dp, CompactMinRowHeight)
-        ?: DayLayoutMetrics(8.dp, 14.dp, 2.dp, 4.dp, 2.dp, CompactMinRowHeight)
+        ?: build(4.dp, 14.dp, 2.dp, 3.dp, 2.dp, CompactMinRowHeight)
+        ?: DayLayoutMetrics(4.dp, 14.dp, 2.dp, 3.dp, 2.dp, CompactMinRowHeight)
 }
 
 @Composable
@@ -516,7 +514,7 @@ private fun GlanceWidgetShell(
         val banner = bannerText?.trim()
         if (!banner.isNullOrEmpty()) {
             GlanceCloudBanner(banner)
-            Spacer(GlanceModifier.height(6.dp))
+            Spacer(GlanceModifier.height(4.dp))
         }
         content()
     }

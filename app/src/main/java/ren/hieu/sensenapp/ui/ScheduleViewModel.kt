@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ren.hieu.sensenapp.BuildConfig
+import ren.hieu.sensenapp.domain.ScheduleCalculator
+import ren.hieu.sensenapp.domain.TodayCourseGrouper
+import java.time.LocalDate
 import ren.hieu.sensenapp.data.model.CourseEventDto
 import ren.hieu.sensenapp.data.model.HolidayCalendarDto
 import ren.hieu.sensenapp.data.model.HolidayMappingDto
@@ -52,6 +55,7 @@ class ScheduleViewModel(
     private val remoteConfigRepository: RemoteConfigRepository,
     private val settingsStore: SettingsStore,
 ) : ViewModel() {
+    private var lastCalendarDate: LocalDate? = null
     val updatePrompt = remoteConfigRepository.updatePrompt
     private val _uiState = MutableStateFlow(
         ScheduleUiState(
@@ -79,20 +83,22 @@ class ScheduleViewModel(
     fun refreshRemoteConfig() {
         viewModelScope.launch {
             _uiState.update { it.copy(settingsSyncAction = SettingsSyncAction.CheckUpdate) }
-            val result = remoteConfigRepository.sync(force = true)
+            val result = remoteConfigRepository.sync(force = true, showPrompt = false)
             reloadFromCacheInternal(showLoading = false)
             val dialog = if (result.isFailure) {
                 SettingsResultDialog(
                     title = "检查更新",
-                    message = result.exceptionOrNull()?.message ?: "网络异常，请稍后重试",
+                    message = "暂时无法检查开源版更新，请稍后重试，或前往 GitHub Releases 查看。",
+                    confirmLabel = "打开 GitHub",
+                    confirmUrl = ren.hieu.sensenapp.remote.OpenReleasePolicy.RELEASES_URL,
                 )
             } else {
-                val android = remoteConfigRepository.cachedConfig()?.android
+                val android = result.getOrNull()?.android
                 val current = BuildConfig.VERSION_CODE
                 val latestCode = android?.latestVersionCode ?: current
                 val apkUrl = android?.apkUrl?.trim().orEmpty()
                 val latestName = android?.latestVersionName?.takeIf { it.isNotBlank() } ?: "新版本"
-                if (current < latestCode && apkUrl.isNotEmpty()) {
+                if (current < latestCode && ren.hieu.sensenapp.remote.OpenReleasePolicy.isApkUrl(apkUrl)) {
                     val notes = android?.releaseNotes?.trim().orEmpty()
                     val body = buildString {
                         append("发现新版本 $latestName")
@@ -146,14 +152,19 @@ class ScheduleViewModel(
         _uiState.update { it.copy(isLoading = false, isLinked = true, holidays = holidays) }
     }
 
+    fun refreshForCurrentDate(returnToToday: Boolean = false) {
+        val export = _uiState.value.export ?: return
+        val today = LocalDate.now(TodayCourseGrouper.zone)
+        if (!returnToToday && today == lastCalendarDate) return
+        lastCalendarDate = today
+        val week = ScheduleCalculator.displayWeek(export, today)
+        refreshWeek(export, week, week)
+    }
+
     private fun applyExport(export: ScheduleExportDto, holidays: HolidayCalendarDto?) {
-        val maxWeek = export.term.maxWeek.coerceIn(1, 30)
-        val serverWeek = export.term.currentWeek
-        val week = when {
-            serverWeek > 0 -> serverWeek.coerceIn(1, maxWeek)
-            else -> _uiState.value.currentWeek.coerceIn(1, maxWeek)
-        }
-        refreshWeek(export, week, serverWeek.takeIf { it > 0 }, holidays)
+        val week = ScheduleCalculator.displayWeek(export)
+        lastCalendarDate = LocalDate.now(TodayCourseGrouper.zone)
+        refreshWeek(export, week, week, holidays)
     }
 
     private fun refreshWeek(

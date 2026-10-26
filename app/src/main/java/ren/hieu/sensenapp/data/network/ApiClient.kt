@@ -28,10 +28,10 @@ object ApiClient {
         }
         .build()
 
-    val scheduleService: ScheduleApiService = Retrofit.Builder()
-        .baseUrl(BuildConfig.SCHEDULE_API_BASE)
+    val githubReleaseService: GitHubReleaseService = Retrofit.Builder()
+        .baseUrl("https://api.github.com/")
         .client(okHttp)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
-        .create(ScheduleApiService::class.java)
+        .create(GitHubReleaseService::class.java)
 }

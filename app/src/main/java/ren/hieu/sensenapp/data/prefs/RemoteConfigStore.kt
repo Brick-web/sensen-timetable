@@ -30,7 +30,7 @@ class RemoteConfigStore(
 
     fun load(): AppRemoteConfigDto? {
         val json = prefs.getString(KEY_JSON, null) ?: return null
-        return adapter.fromJson(json)
+        return runCatching { adapter.fromJson(json) }.getOrNull()
     }
 
     fun activeBanner(now: LocalDate = LocalDate.now(TodayCourseGrouper.zone)): String? {
@@ -62,7 +62,8 @@ class RemoteConfigStore(
     }
 
     companion object {
-        private const val PREFS = "sensen_remote_config"
+        // Do not reuse cached official update/force-update settings from older open builds.
+        private const val PREFS = "sensen_open_github_releases"
         private const val KEY_JSON = "config_json"
         private const val KEY_FETCHED_AT = "fetched_at"
         private const val KEY_HOLIDAY_REVISION = "holiday_revision_applied"

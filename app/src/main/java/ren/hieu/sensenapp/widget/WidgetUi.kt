@@ -7,6 +7,7 @@ import ren.hieu.sensenapp.data.network.ApiClient
 import ren.hieu.sensenapp.data.prefs.RemoteConfigStore
 import ren.hieu.sensenapp.domain.CurriculumWeekBuilder
 import ren.hieu.sensenapp.domain.TodayCourseGrouper
+import ren.hieu.sensenapp.domain.ScheduleCalculator
 import java.time.LocalDate
 
 data class WidgetPresentation(
@@ -33,8 +34,7 @@ suspend fun loadWeekForWidget(context: Context): WeekWidgetData? {
     val settings = app.container.settingsStore
     val pair = repo.getExportForWidget() ?: return null
     val (export, holidays) = pair
-    val maxWeek = export.term.maxWeek.coerceIn(1, 17)
-    val weekNum = export.term.currentWeek.coerceIn(1, maxWeek).takeIf { it > 0 } ?: 1
+    val weekNum = ScheduleCalculator.displayWeek(export)
     val dates = CurriculumWeekBuilder.weekDates(export.term.firstMonday, weekNum)
     val applyHolidays = settings.holidayAdjustmentsEnabled
     val columnCourses = (1..7).map { day ->

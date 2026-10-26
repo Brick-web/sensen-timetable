@@ -16,7 +16,6 @@ class AppContainer(context: Context) {
     val settingsStore = SettingsStore(appContext)
     val remoteConfigStore = RemoteConfigStore(appContext, ApiClient.moshi)
     private val database = ScheduleDatabase.get(appContext)
-    private val api = ApiClient.scheduleService
 
     val scheduleRepository = ScheduleRepository(
         appContext = appContext,
@@ -27,10 +26,7 @@ class AppContainer(context: Context) {
     )
 
     val remoteConfigRepository = RemoteConfigRepository(
-        appContext = appContext,
-        api = api,
-        sessionStore = sessionStore,
+        api = ApiClient.githubReleaseService,
         remoteConfigStore = remoteConfigStore,
-        scheduleRepository = scheduleRepository,
     )
 }

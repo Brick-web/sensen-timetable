@@ -16,7 +16,9 @@ class PeriodScheduleGlanceWidget : GlanceAppWidget() {
         val presentation = loadWidgetPresentation(context)
         provideContent {
             ScheduleGlanceTheme {
-                GlancePeriodScheduleContent(today, presentation)
+                RefreshingWidgetContent(context, today, presentation, { loadTodayForWidget(context) }) { data, style ->
+                    GlancePeriodScheduleContent(data, style)
+                }
             }
         }
     }

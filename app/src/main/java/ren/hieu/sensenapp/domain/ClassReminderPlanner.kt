@@ -24,7 +24,7 @@ object ClassReminderPlanner {
         holidays: HolidayCalendarDto,
         minutesBefore: Int = 15,
         now: LocalDateTime = LocalDateTime.now(zone),
-        horizonDays: Int = 3,
+        horizonDays: Int = 7,
         applyHolidayAdjustments: Boolean = true,
     ): List<ClassReminderTrigger> {
         val results = mutableListOf<ClassReminderTrigger>()

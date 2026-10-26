@@ -153,7 +153,6 @@ class ScheduleRepository(
 
     suspend fun refreshLocalScheduleViews() = withContext(Dispatchers.IO) {
         loadFromCache()
-        updateAllScheduleWidgets(appContext)
         val pair = getExportForWidget() ?: return@withContext
         WidgetRefreshScheduler.scheduleAfterSync(
             appContext,
@@ -165,6 +164,9 @@ class ScheduleRepository(
 
     suspend fun refreshAllWidgets() = withContext(Dispatchers.IO) {
         loadFromCache()
+        getExportForWidget()?.let { (export, holidays) ->
+            WidgetRefreshScheduler.scheduleAlarms(appContext, export, holidays, settingsStore.holidayAdjustmentsEnabled)
+        }
         updateAllScheduleWidgets(appContext)
     }
 

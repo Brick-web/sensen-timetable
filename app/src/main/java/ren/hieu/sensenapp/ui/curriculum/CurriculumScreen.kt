@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import ren.hieu.sensenapp.data.model.HolidayCalendarDto
 import ren.hieu.sensenapp.data.model.ScheduleExportDto
 import ren.hieu.sensenapp.domain.CurriculumWeekBuilder
@@ -170,10 +171,12 @@ fun CurriculumScreen(
             }
         }
 
+        val latestOnWeekFromPager = androidx.compose.runtime.rememberUpdatedState(onWeekFromPager)
         LaunchedEffect(pagerState) {
-            snapshotFlow { pagerState.currentPage }
+            snapshotFlow { pagerState.settledPage }
                 .distinctUntilChanged()
-                .collect { page -> onWeekFromPager(page + 1) }
+                .drop(1)
+                .collect { page -> latestOnWeekFromPager.value(page + 1) }
         }
 
         HorizontalPager(

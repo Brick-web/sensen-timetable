@@ -14,20 +14,21 @@ android {
         applicationId = "ren.hieu.sensenapp.open"
         minSdk = 24
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        // versionCode: major * 10000 + minor * 100 + patch (e.g. 1.0.0 -> 10000, 1.0.1 -> 10001)
+        versionCode = 10001
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(
-            "String",
-            "SCHEDULE_API_BASE",
-            "\"https://www.hieu.ren/API/app/schedule/\"",
-        )
+
     }
 
     buildTypes {
         release {
+            isMinifyEnabled = false
+            isShrinkResources = false
+            // GitHub 分发：使用 debug 密钥签名，无需把 keystore 提交进仓库
+            signingConfig = signingConfigs.getByName("debug")
             optimization {
                 enable = false
             }
@@ -41,6 +42,9 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+    lint {
+        checkReleaseBuilds = false
     }
 }
 

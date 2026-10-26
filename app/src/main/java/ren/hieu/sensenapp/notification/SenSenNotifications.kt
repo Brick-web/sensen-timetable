@@ -36,14 +36,23 @@ object SenSenNotifications {
             setShowBadge(true)
         }
         manager.createNotificationChannel(channel)
+
     }
 
     fun canPost(context: Context): Boolean {
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return false
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return true
         return ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.POST_NOTIFICATIONS,
         ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun canPostClassReminder(context: Context): Boolean {
+        if (!canPost(context)) return false
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return true
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        return manager.getNotificationChannel(CHANNEL_CLASS)?.importance != NotificationManager.IMPORTANCE_NONE
     }
 
     fun showClassReminder(
@@ -54,7 +63,7 @@ object SenSenNotifications {
         startLabel: String,
         minutesBefore: Int,
     ) {
-        if (!canPost(context)) return
+        if (!canPostClassReminder(context)) return
         ensureChannels(context.applicationContext)
         val app = context.applicationContext
         val open = Intent(app, MainActivity::class.java).apply {
@@ -68,7 +77,7 @@ object SenSenNotifications {
         )
         val place = location.ifBlank { "地点待定" }
         val notification = NotificationCompat.Builder(app, CHANNEL_CLASS)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_stat_schedule)
             .setContentTitle("即将上课：$courseName")
             .setContentText("${minutesBefore} 分钟后（$startLabel 开始）· $place")
             .setStyle(
@@ -83,6 +92,11 @@ object SenSenNotifications {
             .setVibrate(reminderVibrationPattern)
             .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
             .build()
-        NotificationManagerCompat.from(app).notify(NOTIFICATION_ID_BASE + requestCode % 500, notification)
+        try {
+            NotificationManagerCompat.from(app).notify(NOTIFICATION_ID_BASE + requestCode % 500, notification)
+        } catch (_: SecurityException) {
+            // 权限可能在检查后被撤销，不能让广播崩溃。
+        }
     }
+
 }

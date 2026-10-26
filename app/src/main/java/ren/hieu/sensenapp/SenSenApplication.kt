@@ -20,6 +20,8 @@ class SenSenApplication : Application() {
         container = AppContainer(this)
         SenSenNotifications.ensureChannels(this)
         RemoteConfigWorker.schedule(this)
+        ren.hieu.sensenapp.widget.WidgetRefreshScheduler.schedulePeriodic(this)
+        ren.hieu.sensenapp.widget.WidgetRefreshWorker.enqueue(this)
         appScope.launch {
             container.remoteConfigRepository.sync(force = false)
         }

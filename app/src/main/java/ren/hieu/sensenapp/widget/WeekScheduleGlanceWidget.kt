@@ -17,7 +17,9 @@ class WeekScheduleGlanceWidget : GlanceAppWidget() {
         val presentation = loadWidgetPresentation(context)
         provideContent {
             ScheduleGlanceTheme {
-                GlanceWeekScheduleContent(week, presentation)
+                RefreshingWidgetContent(context, week, presentation, { loadWeekForWidget(context) }) { data, style ->
+                    GlanceWeekScheduleContent(data, style)
+                }
             }
         }
     }

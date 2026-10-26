@@ -112,6 +112,11 @@ object ScheduleCalculator {
         return buildDayCourses(export, weekNum, effectiveWeekday)
     }
 
+    /** 缓存中的 current_week 仅是导出时的快照，展示周始终按本地日期计算。 */
+    fun displayWeek(export: ScheduleExportDto, today: LocalDate = LocalDate.now(zone)): Int =
+        currentWeek(LocalDate.parse(export.term.firstMonday, dateFmt), today, export.term.maxWeek.coerceIn(1, 30))
+            .coerceIn(1, export.term.maxWeek.coerceIn(1, 30))
+
     fun currentWeek(firstMonday: LocalDate, today: LocalDate, maxWeek: Int): Int {
         if (today.isBefore(firstMonday)) return 0
         val days = ChronoUnit.DAYS.between(firstMonday, today)
@@ -201,7 +206,14 @@ object ScheduleCalculator {
     ): List<LocalDateTime> {
         val today = todaySchedule(export, holidays, now, applyHolidayAdjustments)
         val date = now.toLocalDate()
-        val triggers = mutableListOf<LocalDateTime>()
+        // 无课日也必须切换日期/时段；午夜触发后会继续安排新一天。
+        val triggers = mutableListOf(date.plusDays(1).atStartOfDay())
+        listOf("08:00", "09:40", "10:00", "11:40", "12:00", "14:00", "15:40", "16:00", "17:40", "18:00", "19:00", "20:40")
+            .forEach { parseTodayTime(date, it)?.let(triggers::add) }
+        export.sectionTimes.forEach { section ->
+            parseTodayTime(date, section.start)?.let(triggers::add)
+            parseTodayTime(date, section.end)?.let(triggers::add)
+        }
         for (course in today.courses) {
             parseTodayTime(date, course.sectionStart)?.let { triggers.add(it) }
             parseTodayTime(date, course.sectionEnd)?.let { triggers.add(it) }

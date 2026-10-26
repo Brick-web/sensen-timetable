@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-edition="open">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="森森课表开源版 — 一张课表，就刚刚好。无需账号，数据只留在本机，MIT 协议开源。" />
+    <title>森森课表开源版 — 一张课表，就刚刚好</title>
+    <link rel="stylesheet" href="assets/styles.css?v=20261025-lens2" />
+  </head>
+  <body>
+    <div class="page-root">
+      <div class="page-bg" aria-hidden="true">
+        <div class="page-bg__base"></div>
+        <div class="page-bg__blur"></div>
+        <div class="page-bg__grid"></div>
+      </div>
+
+      <div class="shell">
+        <nav class="nav glass reveal">
+          <a class="brand" href="#">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="5" width="18" height="16" rx="3" stroke="#fff" stroke-width="1.8" />
+                <path d="M3 10h18M8 3v4M16 3v4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </span>
+            森森课表 开源版
+          </a>
+          <div class="nav-links">
+            <a class="nav-link nav-link--hide-sm" href="#features">功能</a>
+            <a class="nav-link" href="index.html">正式版</a>
+            <a class="nav-cta" href="#download">下载</a>
+          </div>
+        </nav>
+
+        <header class="hero">
+          <div>
+            <p class="eyebrow reveal reveal-1">森森课表 · 开源版</p>
+            <h1 class="reveal reveal-2">一张课表，<br /><span class="tint">就刚刚好。</span></h1>
+            <p class="lede reveal reveal-3">
+              同样克制的课表，多一分自由。<br />数据只留在你的手机里，代码向所有人敞开。
+            </p>
+            <div class="actions reveal reveal-4">
+              <a class="btn btn-primary" data-download-primary href="https://github.com/Brick-web/sensen-timetable/releases/latest" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 20h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span data-btn-label>从 GitHub 下载</span>
+              </a>
+              <a class="link-more" data-github-repo href="https://github.com/Brick-web/sensen-timetable" rel="noopener">查看源码</a>
+            </div>
+            <p class="fineprint reveal reveal-4" data-download-meta>Android 7.0 及以上 · MIT 协议</p>
+          </div>
+
+          <div class="stage reveal reveal-3" aria-hidden="true">
+            <div class="device glass">
+              <div class="device__screen">
+                <div class="tt-head">
+                  <div><small>第 6 周</small><strong>10 月 14 日 周三</strong></div>
+                  <span>本机</span>
+                </div>
+                <div class="tt-days"><i></i><b>一</b><b>二</b><b class="is-today">三</b><b>四</b><b>五</b></div>
+                <div class="tt-grid">
+                  <span class="tt-n" style="grid-row: 1">1</span>
+                  <span class="tt-n" style="grid-row: 2">2</span>
+                  <span class="tt-n" style="grid-row: 3">3</span>
+                  <span class="tt-n" style="grid-row: 4">4</span>
+                  <span class="tt-n" style="grid-row: 5">5</span>
+                  <span class="tt-n" style="grid-row: 6">6</span>
+                  <span class="tt-n" style="grid-row: 7">7</span>
+                  <span class="tt-n" style="grid-row: 8">8</span>
+                  <div class="tt-c c-teal" style="grid-column: 2; grid-row: 1 / span 2">高等数学<small>A201</small></div>
+                  <div class="tt-c c-blue" style="grid-column: 3; grid-row: 1 / span 2">大学物理<small>C103</small></div>
+                  <div class="tt-c c-green" style="grid-column: 4; grid-row: 1 / span 2">程序设计<small>机房 3</small></div>
+                  <div class="tt-c c-violet" style="grid-column: 5; grid-row: 2 / span 2">线性代数<small>A305</small></div>
+                  <div class="tt-c c-orange" style="grid-column: 2; grid-row: 4 / span 2">近代史<small>D108</small></div>
+                  <div class="tt-c c-teal" style="grid-column: 4; grid-row: 3 / span 2">大学英语<small>B305</small></div>
+                  <div class="tt-c c-blue" style="grid-column: 6; grid-row: 1 / span 2">体育<small>东操场</small></div>
+                  <div class="tt-c c-pink" style="grid-column: 3; grid-row: 5 / span 2">思想政治<small>D201</small></div>
+                  <div class="tt-c c-violet" style="grid-column: 4; grid-row: 6 / span 2">电路原理<small>C210</small></div>
+                  <div class="tt-c c-green" style="grid-column: 6; grid-row: 5 / span 2">数据结构<small>A402</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="toast glass">
+              <span class="toast__icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5 10 17l9-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+              <p><strong>已保存到本机</strong>大学英语 · 第 1–16 周</p>
+            </div>
+          </div>
+        </header>
+
+        <section class="section" id="features">
+          <div class="section-head">
+            <h2>你的课表，<br />你说了算。</h2>
+            <p>不依赖任何云端服务。从第一节课到最后一个假期，都由你亲手安排。</p>
+          </div>
+          <div class="cards">
+            <article class="card glass">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" /><path d="M12 10v6M9 13h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+              </div>
+              <p class="card__label">编辑</p>
+              <h3>点一下空白，<br />就添一节课。</h3>
+              <p>在课表上直接新增课程，按 1–20 周自由勾选上课周次，单双周也能从容应对。</p>
+            </article>
+            <article class="card glass">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" /><path d="M4 10h16M8 3v4M16 3v4M9 15h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+              </div>
+              <p class="card__label">假期</p>
+              <h3>放假与调休，<br />自己安排。</h3>
+              <p>在设置中配置假期和调休，并自定义第一周的周一，周次推算始终准确。</p>
+            </article>
+            <article class="card glass">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8" /><rect x="13" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8" /><rect x="4" y="13" width="16" height="7" rx="2" stroke="currentColor" stroke-width="1.8" /></svg>
+              </div>
+              <p class="card__label">小组件</p>
+              <h3>抬眼，<br />就是下一节课。</h3>
+              <p>时段、全天、整周三种桌面小组件，与应用共享同一份清爽，不点开也能心中有数。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="download">
+          <div class="download glass">
+            <h2>开源，也可以很优雅。</h2>
+            <p>安装包发布在 GitHub Releases，适用于 Android 7.0 及以上设备。<br />欢迎提交 Issue 与 Pull Request。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://github.com/Brick-web/sensen-timetable/releases/latest" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 20h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                前往 GitHub Releases
+              </a>
+              <a class="link-more" href="https://github.com/Brick-web/sensen-timetable" rel="noopener">查看源码</a>
+            </div>
+          </div>
+
+          <div class="aside glass">
+            <div>
+              <h3>需要多设备同步与课前提醒？</h3>
+              <p>森森课表正式版支持绑定码同步与课前通知，换机也能一键找回课表。</p>
+            </div>
+            <a class="link-more" href="index.html">了解正式版</a>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <span data-version>v1.0.0</span><span class="dot">·</span><a href="https://github.com/Brick-web/sensen-timetable/blob/main/LICENSE" rel="noopener">MIT License</a><span class="dot">·</span><a href="index.html">正式版</a>
+        </footer>
+      </div>
+    </div>
+
+    <script src="assets/cursor.js?v=20261025-lens2"></script>
+    <script src="assets/main.js?v=20261025-1.0.1"></script>
+  </body>
+</html>
